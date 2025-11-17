@@ -6,6 +6,7 @@ import { authRouter } from './routes/auth.js';
 import { meRouter } from './routes/me.js';
 import { applicationRouter } from './routes/application.js';
 import { requireAuth, requireAdmin } from './middleware/requireAuth.js';
+import {eventRouter} from './routes/events.js'
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +19,7 @@ app.get('/', (_, res) => res.send('vosc backend running'));
 app.use('/api/auth/me', meRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/applications', requireAuth, requireAdmin, applicationRouter);
+app.use('/api', eventRouter)
 
 app.use((req, res) => {
   res.status(404).json({
